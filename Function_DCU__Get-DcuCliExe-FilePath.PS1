@@ -12,19 +12,19 @@ Function Get-DcuCliExe-FilePath {
     if ( test-path $DcuCliClassic ) 
         {
         $DcuCliExeFilePath = $DcuCliClassic
-        $DcuVersion = (Get-Item $DcuCliExeFilePath).VersionInfo.FileVersion  # .FileVersionRaw
+        $DcuVersion        = (Get-Item $DcuCliExeFilePath).VersionInfo.FileVersion  # .FileVersionRaw
         $MsgString         = "Dell Command Upate (Classic) is installed at '$DcuCliExeFilePath' - v $DcuVersion"
         }
     elseif ( test-path $DcuCliUwp ) 
         {
         $DcuCliExeFilePath = $DcuCliUwp
-        $DcuVersion = (Get-Item $DcuCliExeFilePath).VersionInfo.FileVersionRaw
+        $DcuVersion        = (Get-Item $DcuCliExeFilePath).VersionInfo.FileVersionRaw
         $MsgString         = "Dell Command Upate (UWP) is installed at '$DcuCliExeFilePath' - v $DcuVersion"
         }
     else
         {
         $DcuCliExeFilePath = $Null
-        $MsgString         = "Dell Command Upate (UWP) is -------- not installed --------"
+        $MsgString         = "Dell Command Upate (Classic / UWP) is -------- not installed --------"
         }
     Write-Host "Get-DcuCliExe-FilePath() - $MsgString"
     return $DcuCliExeFilePath
