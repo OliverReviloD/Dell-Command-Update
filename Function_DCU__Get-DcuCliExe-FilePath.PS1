@@ -29,7 +29,12 @@ Function Get-DcuCliExe-FilePath {
     Write-Host "Get-DcuCliExe-FilePath() - $MsgString"
     return $DcuCliExeFilePath
     }
-
-# Get-DcuCliExe-FilePath
-
-    
+<#
+    [String]$DcuCliExeFilePath = Get-DcuCliExe-FilePath
+    # Write-Host "DcuCliExeFilePath '$DcuCliExeFilePath'"
+    if ( $DcuCliExeFilePath -eq $Null -or $DcuCliExeFilePath -eq "" )
+        {
+        Write-Error      "'Dell Command Update' is not installed - E X I T"
+        return 1
+        }
+#>
