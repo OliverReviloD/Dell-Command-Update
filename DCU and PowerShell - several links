@@ -1,0 +1,19 @@
+Dell Command Update 
+
+Dell Command Update – pulling back the curtains
+---------------
+https://garytown.com/dell-command-update-pulling-back-the-curtains
+		Get-DellSupportedModels
+		Get-DCUUpdateList
+		Get-DellDeviceDetails
+		Install-DCU
+
+
+TechDirect - Dell Command Update Catalogs
+---------------
+https://www.dell.com/de-de/blog/pc-flotten-individuell-auf-dem-laufenden-halten-dell-custom-update-catalog/
+
+Driver Updates
+---------------
+Dell		https://www.dell.com/support/kbdoc/en-us/000197092/dell-drivers-and-downloads-update-release-schedule
+Microsoft   	https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/gradual-rollout
