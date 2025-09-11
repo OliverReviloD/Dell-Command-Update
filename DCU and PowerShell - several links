@@ -17,3 +17,10 @@ Driver Updates
 ---------------
 Dell		https://www.dell.com/support/kbdoc/en-us/000197092/dell-drivers-and-downloads-update-release-schedule
 Microsoft   	https://learn.microsoft.com/en-us/windows-hardware/drivers/dashboard/gradual-rollout
+
+
+INTUNE - examples
+
+Create Log Analytics workbooks for Dell Command Update Telemetry data
+---------------
+https://www.youtube.com/watch?v=poXQeRCzEJQ
