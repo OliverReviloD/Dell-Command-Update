@@ -1,0 +1,70 @@
+@REM return values
+@REM ---------------
+@REM 0   :   Updates are available
+@REM 5   :   REBOOT required - before DCU can get started.
+@REM 500 :   no missing updates are detected
+@REM 501 :   network error - catalog not found
+@REM 9994:   Catalog.XML not found - verify File-Access on server
+@REM 9999:   DCU is NOT installed
+
+@setlocal EnableDelayedExpansion
+
+@if exist "C:\Program Files\Dell\CommandUpdate\dcu-cli.exe"        @set DCUCLI="C:\Program Files\Dell\CommandUpdate\dcu-cli.exe"
+@if exist "C:\Program Files (x86)\Dell\CommandUpdate\dcu-cli.exe"  @set DCUCLI="C:\Program Files (x86)\Dell\CommandUpdate\dcu-cli.exe"
+
+@REM -----   DCU is NOT installed -------
+@if not defined DCUCLI (
+    @echo Error  -  DCU is NOT installed
+    @exit /b 999
+    )
+
+
+@REM log folder
+@REM ---------------
+@REM
+@set myDcuFolder=c:\Programdata\Dell
+@if not exist %myDcuFolder%\. md %myDcuFolder%
+
+@set myDcuLogFolder=&myDcuFolder\DCU_CLI_LOGs
+@if not exist %myDcuLogFolder%\. md %myDcuLogFolder%
+
+
+@REM Scan paramters
+@REM ---------------
+@REM
+@Set ScanLogFile="%myDcuLogFolder%\ScanBiosFirmware.log"
+@Set updatet=bios,firmware
+@Set updatesev=security,critical,recommended,optional
+
+
+@REM Run Scan 
+@REM ---------------
+%DCUCLI%      /scan -outputLog=%ScanLogFile% -report=%myDcuLogFolder% -updateType=%updatet% -updateSeverity=%updatesev%
+@set myerrorlevel=%errorlevel%
+
+
+@REM search for string   "failed to provide any result"   in file   '%ScanLogFile%'      
+@REM ---------------
+@REM
+@REM        "The catalog \\<UNC-Path>\Catalogs\CustomCatalog1.xml failed to provide any result"
+@REM 
+@if %myerrorlevel% equ 500 @find /i "failed to provide any result" ScanLogFile && @set myerrorlevel=9994
+
+
+@REM exit CMD  with defined value
+@REM ---------------
+@if %myerrorlevel% equ 5   @echo.
+@if $myerrorlevelt equ 5   @echo A previous operation requires a system reboot to complete. You may execute this command after the system has restarted. The program exited with return code: 5
+@if %myerrorlevel% equ 5   @exit /b 5
+
+@if %myerrorlevel% equ 500 @echo.
+@if %myerrorlevel% equ 500 @echo no missing updates are detected - Script returns 500.
+@if %myerrorlevel% equ 500 @exit /b 500
+
+@if %myerrorlevel% equ 9994 @echo.
+@if %myerrorlevel% equ 9994 @echo Catalog.XML not found - verify File-Access on server - Script returns 9994.
+@if %myerrorlevel% equ 9994 @exit /b 9994
+
+@if %myerrorlevel% equ 0    @echo.
+@if %myerrorlevel% equ 0    @echo Missing updates are available - Script returns 0
+endlocal
